@@ -1,0 +1,65 @@
+* {
+    padding:0;
+    margin:0;
+    box-sizing: border-box;
+}
+
+.app{
+    height: 100vh;
+    width: 100vw;
+    background: yellow;
+}
+
+.nav{
+    width:100vw;
+    height: 10%;
+    background: blue;
+    display: flex;
+    justify-content: space-evenly;
+    padding: 0 30px;
+    align-items: center;
+    font-size: 110%;
+    color: black;
+}
+
+img{
+    width: 10%;
+}
+
+.display{
+    height: 20%;
+    width: 100vw;
+    background: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size:300%;
+    margin: 50px 0;
+}
+
+.app > .buttons{
+    height: 15%;
+    width: 100vw;
+    display:flex;
+    flex-wrap: wrap;
+    background: yellow;
+    margin: 20px 0;
+}
+
+.app > .buttons > button{
+    height: 50%;
+    width: 30%;
+    background: green;
+    border-radius: 5%;
+}
+
+.preview{
+    position: relative;
+    top: 125px;
+    left: 100px;
+    height: 50px;
+    width: 120px;
+    background: orange;
+    padding: 15px 40px;
+    border-radius: 5%;
+}

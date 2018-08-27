@@ -1,13 +1,11 @@
-import React, { Component } from 'react'
-import './Home.css'
-import {Link} from 'react-router-dom'
-import axios from 'axios'
-import home from './home.svg'
-import cart from './shopping-cart.svg'
+import React,{Component} from 'react'
+import './Wallet.css'
 import avatar from './avatar.svg'
 import banknote from './banknote.svg'
+import home from './home.svg'
+import cart from './shopping-cart.svg'
 
-class Home extends Component {
+class Account extends Component{
     constructor() {
         super()
 
@@ -23,18 +21,11 @@ class Home extends Component {
         })
     }
 
-    componentDidMount() {
-        axios.get('https://api.coinmarketcap.com/v2/ticker/1/')
-            .then(resp => {
-                this.setState({ crypto_data: resp.data.data.quotes.USD.price })
-            })
-    }
-
-    render() {
-        return (
+    render(){
+        return(
             <div>
                 <nav>
-                    <div>Coinspace</div>
+                    <div>Wallet</div>
                     <div className="hamburger"
                     onClick={()=>this.showMenu()}>
                         <div></div>
@@ -58,28 +49,19 @@ class Home extends Component {
                 </div>
 
                 <div className="buttons">
-                    <Link to='/buy'>
-                    <div>Buy</div>
-                    </Link>
-                    <div>Sell</div>
+                    {/* <Link to='/buy'> */}
+                    <div>Send</div>
+                    {/* </Link> */}
+                    <div>Receive</div>
                 </div>
 
                 <div className="footer">
-                    <Link to='/'>
                     <img src={home} alt="" />
-                    </Link>
-
-                    <Link to='/wallet' >
+                    {/* <Link to='/account' > */}
                     <img src={banknote} alt="" />
-                    </Link>
-
-                    <Link to='/cart' >
+                    {/* </Link> */}
                     <img src={cart} alt="" />
-                    </Link>
-
-                    <Link to='/account'>
                     <img src={avatar} alt="" />
-                    </Link>
                     
                 </div>
             </div>
@@ -87,4 +69,4 @@ class Home extends Component {
     }
 }
 
-export default Home
+export default Account
