@@ -4,96 +4,35 @@
     box-sizing: border-box;
 }
 
-nav{
-    width: 100vw;
-    height: 50px;
-    background: blue;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    color: white;
-    font-size: 140%;
-}
-
-.hamburger{
-    height: 90%;
-    width: 10%;
-    background: white;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-}
-
-.hamburger > div{
-    height: 20%;
-    width: 100%;
-    background: black;
-}
-
-ul{
-    font-size: 120%;
-    color: black;
-}
-
-.dropdown{
-    background: slategrey;
-    height: 0;
-    overflow:hidden;
-    transition: 600ms height ease-in, 5000ms background ease-in-out;
-}
-
-.dropDownShow{
-    height: 100px;
-    background: orangered;
-}
-
-.body{
+.home-body{
     width: 100vw;
     height: 400px;
-    background: yellow;
+    background: #66a66b;
     padding: 20px 0;
     display:flex;
     flex-direction: column;
     align-items: center;
 }
 
-.body > div{
+.home-body > div{
     width: 80%;
     height: 60%;
     margin: 30px 0;
     background: white;
+    border: 2px solid black;
 }
 
-div > .buttons{
+.buy-sell{
     height: 60px;
     width: 100vw;
-    background: purple;
+    background: yellow			;
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
 }
 
-div > .buttons > div{
-    margin: 20px 0;
-}
-
-div > .buttons > a{
-    margin: 20px 0;
-}
-
-.footer{
-    width: 100vw;
-    height: 60px;
-    background: green;
-    display: flex;
-    justify-content: space-around;
-}
-
-a{
-    width: 20%;
-}
-
-.footer > img{
-    width: 10%;
-    height: 50%;
-    margin: 15px 0;
+.footer > a > img{
+    margin: 12px 0;
+    width: 80%;
+    height: auto;
 }

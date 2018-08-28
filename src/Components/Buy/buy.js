@@ -1,42 +1,77 @@
 import React, {Component} from 'react'
 import './buy.css'
+import axios from 'axios'
 import {Link} from 'react-router-dom'
-import {updatePrice} from '../../ducks/reducer'
+import {updatePrice,clearPrice} from '../../ducks/reducer'
 import {connect} from 'react-redux'
-import home from './home_icon1.png'
-import cart from './shopping_cart1.png'
+import home from './home.svg'
+import cart from './shopping-cart.svg'
 
 class Buy extends Component{
+    constructor(){
+        super()
+
+        this.state={
+
+        }
+    }
+
+    updateBuy(){
+        axios.post('/api/transactions',{
+        price: parseInt(this.props.price,10)})
+    }
+
     render(){
+        console.log(this.props.price)
         return(
             <div className="app">
 
-                <div className="nav">
-                <Link to='/'><img src={home} alt=''/></Link>
+                <nav>
+                <Link to='/home'>
+                <img src={home} alt=''/>
+                </Link>
+                <Link to='/cart'>
                 <img src={cart} alt=""/>
-                </div>
+                </Link>
+                </nav>
 
                 <div className="display">
-                {this.props.price}
+                ${this.props.price}
                 </div>
 
-                <div className="buttons">
-                    <button>1</button>
-                    <button>2</button>
-                    <button>3</button>
-                    <button>4</button>
-                    <button>5</button>
-                    <button>6</button>
-                    <button>7</button>
-                    <button>8</button>
-                    <button>9</button>
-                    <button>.</button>
-                    <button>0</button>
-                    <button>clear</button>
+                <div className="button-class">
+                    <button
+                    onClick={()=>this.props.updatePrice('1')}>1</button>
+                    <button
+                    onClick={()=>this.props.updatePrice('2')}>2</button>
+                    <button
+                    onClick={()=>this.props.updatePrice('3')}>3</button>
+                    <button
+                    onClick={()=>this.props.updatePrice('4')}>4</button>
+                    <button
+                    onClick={()=>this.props.updatePrice('5')}>5</button>
+                    <button
+                    onClick={()=>this.props.updatePrice('6')}>6</button>
+                    <button
+                    onClick={()=>this.props.updatePrice('7')}>7</button>
+                    <button
+                    onClick={()=>this.props.updatePrice('8')}>8</button>
+                    <button
+                    onClick={()=>this.props.updatePrice('9')}>9</button>
+                    <button
+                    onClick={()=>this.props.updatePrice('.')}>.</button>
+                    <button
+                    onClick={()=>this.props.updatePrice('0')}>0</button>
+                    <button
+                    onClick={()=>this.props.clearPrice()}>clear</button>
                 </div>
 
                 <div className="preview">
-                    <button>preview</button>
+                    <Link to='/home' className="preview-link">
+                    <button
+                    onClick={()=>this.updateBuy()}
+                    >Confirm</button>
+                    </Link>
                 </div>
             </div>
         )
@@ -48,4 +83,4 @@ function mapStateToProps(state){
         price: state.price
     }
 }
-export default connect(mapStateToProps, {updatePrice})(Buy)
+export default connect(mapStateToProps, {updatePrice,clearPrice})(Buy)

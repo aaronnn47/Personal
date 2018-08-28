@@ -42,30 +42,44 @@ class Home extends Component {
                         <div></div>
                     </div>
                 </nav>
+
                 <div className={(this.state.menuShow ? 'dropDownShow': '') + ' dropdown'}>
                     <ul>
+                        <Link to='/mens'>
                         <li>Men</li>
+                        </Link>
+
+                        <Link to='/womens'>
                         <li>Women</li>
+                        </Link>
+                        
+                        <Link to='/kids'>
                         <li>Kids</li>
+                        </Link>
+
+                        <Link to='/accessories'>
                         <li>Accessories</li>
+                        </Link>
                     </ul>
                 </div>
 
-                <div className="body">
+                <div className="home-body">
                     <h1>Bitcoin</h1>
                     {Math.round(this.state.crypto_data * 100) / 100}
                     <div></div>
                 </div>
 
-                <div className="buttons">
+                <div className="buy-sell">
                     <Link to='/buy'>
                     <div>Buy</div>
                     </Link>
+                    <Link to='/sell'>
                     <div>Sell</div>
+                    </Link>
                 </div>
 
                 <div className="footer">
-                    <Link to='/'>
+                    <Link to='/home'>
                     <img src={home} alt="" />
                     </Link>
 

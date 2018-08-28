@@ -7,21 +7,24 @@
 nav{
     width: 100vw;
     height: 50px;
-    background: blue;
+    background: #2b58c9	;
     display: flex;
     justify-content: space-between;
     padding: 10px;
-    color: white;
+    color: #343550	;
     font-size: 140%;
+    border-bottom: 2px solid black;
 }
 
 .hamburger{
     height: 90%;
     width: 10%;
-    background: white;
+    background: yellow	;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    border-radius: 5%;
+    border: 2px solid black;
 }
 
 .hamburger > div{
@@ -44,48 +47,85 @@ ul{
 
 .dropDownShow{
     height: 100px;
+    width: 100%;
     background: orangered;
 }
 
-.body{
+.wallet-body{
     width: 100vw;
     height: 400px;
-    background: yellow;
+    background: #66a66b;
     padding: 20px 0;
     display:flex;
     flex-direction: column;
     align-items: center;
 }
 
-/* .body > div{
-    width: 80%;
-    height: 60%;
-    margin: 30px 0;
-    background: white;
-} */
+.showPublicKey{
+    background: yellow;
+    height: 0px;
+    width: 95%;
+    overflow: hidden;
+    margin: 50px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 90%;
+    justify-content: center;
+    position: absolute;
+}
 
-.buttons{
-    height: 20px;
-    width: 100vw;
+.showPublicKeyShow{
+    height: 200px;
+    margin: 150px 0;
+}
+
+.showAddress{
     background: purple;
+    height: 0px;
+    width: 95%;
+    overflow:hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+}
+
+.showAddressShow{
+    height: 200px;
+    margin: 150px 0;
+}
+
+.qr{
+    width: 100px;
+    height: 100px;
+    margin: 20px 0;
+}
+
+.send-receive{
+    height: 60px;
+    width: 100vw;
+    background: yellow;			;
     display: flex;
     justify-content: space-evenly;
+    align-items: center
 }
 
 .footer{
     width: 100vw;
     height: 60px;
-    background: green;
+    background: #2b58c9;
     display: flex;
     justify-content: space-around;
+    border-top: 2px solid black
 }
 
-a{
-    width: 20%;
-}
-
-.footer > img{
+.footer > link{
     width: 10%;
-    height: 50%;
-    margin: 15px 0;
+}
+
+img{
+    width: 20px;
+    height: auto;
 }
