@@ -27,8 +27,65 @@ module.exports={
         .then(resp=>{
             res.status(200).send(resp)
         })
+    },
+    getMens: (req,res)=>{
+        let db = req.app.get('db')
+
+        db.get_mens()
+        .then(resp=>{
+            res.status(200).send(resp)
+        })
+    },
+    getWomens: (req,res)=>{
+        let db=req.app.get('db')
+
+        db.get_womens()
+        .then(resp=>{
+            res.status(200).send(resp)
+        })
+    },
+    getKids: (req,res)=>{
+        let db=req.app.get('db')
+
+        db.get_kids()
+        .then(resp=>{
+            res.status(200).send(resp)
+        })
+    },
+    getAccessories: (req,res)=>{
+        let db=req.app.get('db')
+
+        db.get_accessories()
+        .then(resp=>{
+            res.status(200).send(resp)
+        })
+    },
+    getHats: (req,res)=>{
+        let db=req.app.get('db')
+        console.log(req.session)
+        db.get_hats()
+        .then(resp=>{
+            res.status(200).send(resp)
+        })
+    },
+    addtocart: (req,res)=>{
+        let db=req.app.get('db')
+        let {id:user_id} = req.session.user
+        let {id} = req.body
+        console.log(req.body)
+
+        db.add_to_cart([user_id, id])
+        .then(resp=>{
+            res.status(200).send('added to cart')
+        })
+    },
+    getcart: (req,res)=>{
+        let db = req.app.get('db')
+
+        db.get_cart()
+        .then(resp=>{
+            res.status(200).send(resp)
+        })
     }
-
-
 
 }

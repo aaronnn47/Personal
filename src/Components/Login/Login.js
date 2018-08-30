@@ -1,6 +1,5 @@
 import React,{Component} from 'react'
 import logo from './cityscape.svg'
-import {Link} from 'react-router-dom'
 import './Login.css'
 
 class Login extends Component{

@@ -67,6 +67,7 @@ app.get('/auth/callback', async (req,res)=>{
 })
 
 function envCheck(req,res,next){
+    console.log('middleware hit')
     if (NODE_ENV === 'dev'){
         req.app.get('db').get_user_by_id().then(userWithIdOne=>{
             req.session.user = userWithIdOne[0]
@@ -82,7 +83,7 @@ app.get('/api/user-data', envCheck, (req,res)=>{
         res.status(200).send(req.session.user)
     }else{
         res.status(401).send('you are not authorized')
-    }
+    }console.log(req.session)
 })
 
 app.get('/auth/logout', (req,res)=>{
@@ -93,6 +94,13 @@ app.get('/auth/logout', (req,res)=>{
 app.post('/api/transactions', pc.addTransaction)
 app.post('/api/sellTransactions',pc.sellTransaction)
 app.get('/api/getbitcoin', pc.getTransaction)
+app.get('/api/mens-clothes', pc.getMens)
+app.get('/api/womens-clothes', pc.getWomens)
+app.get('/api/kids-clothes',pc.getKids)
+app.get('/api/get-accessories',pc.getAccessories)
+app.get('/api/get-hat',pc.getHats)
+app.post('/api/addtocart',pc.addtocart)
+app.get('/api/getcart',pc.getcart)
 
 
 app.listen(NODE_PORT, () => {

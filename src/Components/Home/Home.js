@@ -32,9 +32,9 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
+            <div className="background">
                 <nav>
-                    <div>Coinspace</div>
+                    <div>Clonebase</div>
                     <div className="hamburger"
                     onClick={()=>this.showMenu()}>
                         <div></div>
@@ -59,6 +59,10 @@ class Home extends Component {
 
                         <Link to='/accessories'>
                         <li>Accessories</li>
+                        </Link>
+                        
+                        <Link to='/hats'>
+                        <li>Hats</li>
                         </Link>
                     </ul>
                 </div>

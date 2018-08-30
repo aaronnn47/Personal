@@ -17,13 +17,20 @@ class Account extends Component{
             publicKey: false,
             address: false,
             bitcoinTransaction: null,
-            bitcoin: null
+            bitcoin: null,
+            crypto: []
         }
     }
 
     componentDidMount(){
         this.getBitcoinTransaction()
         this.getBitcoin()
+        this.getOtherCoins()
+        this.alwaysMount()
+    }
+
+    alwaysMount(){
+        axios.get('/api/user-data')
     }
 
     getBitcoinTransaction(){
@@ -33,10 +40,20 @@ class Account extends Component{
         })
     }
 
+    getOtherCoins(){
+        axios.get('https://api.coinmarketcap.com/v2/ticker/?limit=10')
+        .then(resp=>{
+            this.setState({
+                crypto: resp.data.data
+            })
+        })
+    }
+
     getBitcoin(){
         axios.get('https://api.coinmarketcap.com/v2/ticker/1/')
         .then(resp=>{
-            this.setState({bitcoin: resp.data.data.quotes.USD.price})
+            this.setState({
+            bitcoin: resp.data.data.quotes.USD.price})
         })
     }
 
@@ -48,22 +65,44 @@ class Account extends Component{
 
     showPublicKey(){
         this.setState({
-            publicKey: !this.state.publicKey
+            publicKey: true
         })
     }
 
     showSendAddress(){
         this.setState({
-            address: !this.state.address
+            address: true
+        })
+    }
+
+    setToFalse(){
+        this.setState({
+            publicKey: false,
+            address: false
         })
     }
 
     render(){
         let bitcoin = Math.round((this.state.bitcoin*100)/100)
         let transaction = this.state.bitcoinTransaction
+        let crypto = []
+        for (var prop in this.state.crypto){
+            crypto.push(this.state.crypto[prop])
+        }
+        
+        let cryptoData = crypto.map((ele,i)=>{
+            return(
+            <div key={i} className="crypto">
+                <div>{ele.name}</div>
+                <div>{ele.symbol}</div>
+                <div>{parseFloat(ele.quotes.USD.price).toFixed(2)}</div>
+            </div>
+            )
+        })
+        
         return(
-            <div>
-                <nav>
+            <div className="background">
+                <nav onClick={this.alwaysMount}>
                     <div>Wallet</div>
                     <div className="hamburger"
                     onClick={()=>this.showMenu()}>
@@ -74,11 +113,11 @@ class Account extends Component{
                 </nav>
                 <div className={(this.state.menuShow ? 'dropDownShow': '') + ' dropdown'}>
                     <ul>
-                        <Link to='/men'>
-                        <li>Men</li>
+                        <Link to='/mens'>
+                        <li>Mens</li>
                         </Link>
-                        <Link to='/women'>
-                        <li>Women</li>
+                        <Link to='/womens'>
+                        <li>Womens</li>
                         </Link>
                         <Link to='/kids'>
                         <li>Kids</li>
@@ -86,14 +125,21 @@ class Account extends Component{
                         <Link to='accessories'>
                         <li>Accessories</li>
                         </Link>
+                        <Link to='/hats'>
+                        <li>Hats</li>
+                        </Link>
                     </ul>
                 </div>
 
-                <div className="wallet-body">
+                <div className="wallet-body"
+                onClick={()=>this.setToFalse()}>
                     <h1>Bitcoin</h1>
                     <h3>${transaction}</h3>
                     <p>
                     {parseFloat(transaction/bitcoin).toFixed(8)}</p>
+                    {cryptoData}
+
+                </div>
 
                     <div className={(this.state.publicKey ? 'showPublicKeyShow': '') + ' showPublicKey'}>
                     3N99XUQTS1FMQnsnzF1ZJm54752qh1isWy
@@ -105,8 +151,7 @@ class Account extends Component{
                     <input />
                     <button>Confirm</button>
                     </div>
-                </div>
-
+                
                 <div className="send-receive">
                     <button 
                     onClick={()=>this.showSendAddress()}>Send</button>
@@ -115,7 +160,7 @@ class Account extends Component{
                     onClick={()=>this.showPublicKey()}>Receive</button>
                 </div>
 
-                <div className="footer">
+                <div className="footer" onClick={this.alwaysMount}>
                     <Link to='/home' className="link">
                     <img src={home} alt="" />
                     </Link>

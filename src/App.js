@@ -12,10 +12,14 @@ import Womens from './Components/Womens/Womens'
 import Kids from './Components/Kids/Kids'
 import Login from './Components/Login/Login'
 import Sell from './Components/Sell/Sell'
+import Hats from './Components/Hats/Hats'
+import axios from 'axios';
 
 class App extends Component {
 
-  
+  componentDidMount(){
+    axios.get('/api/user-data')
+  }
   render() {
     return (
       <HashRouter>
@@ -31,6 +35,7 @@ class App extends Component {
           <Route path='/kids' component={Kids}/>
           <Route path='/accessories' component={Accessories}/>
           <Route path='/sell' component={Sell}/>
+          <Route path='/hats' component={Hats}/>
           
         </Switch>
       </HashRouter>

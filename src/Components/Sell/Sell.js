@@ -4,8 +4,6 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {updatePrice,clearPrice} from '../../ducks/reducer'
 import {connect} from 'react-redux'
-import home from './home.svg'
-import cart from './shopping-cart.svg'
 
 class Sell extends Component{
     constructor(){
@@ -24,16 +22,39 @@ class Sell extends Component{
     render(){
         console.log(this.props.price)
         return(
-            <div className="app">
+            <div className="background">
 
                 <nav>
-                <Link to='/home'>
-                <img src={home} alt=''/>
-                </Link>
-                <Link to='/cart'>
-                <img src={cart} alt=""/>
-                </Link>
+                    <Link to='/home'>
+                    <div>Clonebase</div>
+                    </Link>
+                    <div className="hamburger"
+                    onClick={()=>this.showMenu()}>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
                 </nav>
+
+                <div className={(this.state.menuShow ? 'dropDownShow': '') + ' dropdown'}>
+                    <ul>
+                        <Link to='/mens'>
+                        <li>Men</li>
+                        </Link>
+
+                        <Link to='/womens'>
+                        <li>Women</li>
+                        </Link>
+                        
+                        <Link to='/kids'>
+                        <li>Kids</li>
+                        </Link>
+
+                        <Link to='/accessories'>
+                        <li>Accessories</li>
+                        </Link>
+                    </ul>
+                </div>
 
                 <div className="display">
                 ${this.props.price}

@@ -12,8 +12,16 @@ class Cart extends Component {
         super()
 
         this.state = {
-            menuShow: false
+            menuShow: false,
+            cart: []
         }
+    }
+
+    componentDidMount(){
+        axios.get('/api/getcart')
+        .then(resp=>{
+            this.setState({cart:resp.data})
+        })
     }
 
     showMenu(){
@@ -23,8 +31,34 @@ class Cart extends Component {
     }
 
     render() {
+        console.log(this.state.cart)
+        
+        let newCart = []
+        for (var i = 0; i < this.state.cart.length; i++){
+            let flag = false
+            for (var j = 0; j < newCart.length;j++){
+                if(this.state.cart[i].id === newCart[j].id){
+                    newCart[j].quantity++
+                    flag = true
+                }
+            }
+            if(!flag){
+                newCart.push(Object.assign({},this.state.cart[i],{quantity:1}))
+            }
+        }
+        
+        let mappedcart = newCart.map((ele,i)=>{
+            return(
+                <div key={i} className="mapped-cart">
+                    <img src={ele.image} alt=""/>
+                    <div>{ele.description}</div>
+                    <div>{ele.quantity}</div>
+                </div>
+            )
+        })
+
         return (
-            <div>
+            <div className="background">
                 <nav>
                     <div>Cart</div>
                     <div className="hamburger"
@@ -38,11 +72,11 @@ class Cart extends Component {
                 <div className={(this.state.menuShow ? 'dropDownShow': '') + ' dropdown'}>
                     <ul>
                         <Link to='/mens'>
-                        <li>Men</li>
+                        <li>Mens</li>
                         </Link>
 
                         <Link to='/womens'>
-                        <li>Women</li>
+                        <li>Womens</li>
                         </Link>
                         
                         <Link to='/kids'>
@@ -52,14 +86,26 @@ class Cart extends Component {
                         <Link to='/accessories'>
                         <li>Accessories</li>
                         </Link>
+                        <Link to='/hats'>
+                        <li>Hats</li>
+                        </Link>
                     </ul>
                 </div>
 
-                <div className="cart-container">
-                    <div></div>
+                <div className="description">
+                    <p>Image</p>
+                    <p>Description</p>
+                    <p>Quantity</p>
+                    
                 </div>
 
-                <div className="bottom-container">
+                <div className="cart-container">
+                    {mappedcart}
+                </div>
+
+                <div className="bottom-cart-div">
+                    <button>Pay With Card</button>
+                    <button>Pay with Bitcoin</button>
                 </div>
 
                 <div className="footer">
@@ -78,6 +124,7 @@ class Cart extends Component {
                     <Link to='/account'>
                     <img src={avatar} alt="" />
                     </Link>
+                    
                     
                 </div>
             </div>

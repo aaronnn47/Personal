@@ -4,8 +4,20 @@
     box-sizing: border-box;
 }
 
-.mens{
-    height: 82vh;
-    width: 100vw;
-    background: green;
+
+.product{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 70px;
+}
+
+.product > button{
+    height: 80%;
+    width: 40%;
+}
+
+.product > img{
+    width: 150%;
 }

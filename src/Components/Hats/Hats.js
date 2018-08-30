@@ -1,25 +1,26 @@
-import React, { Component } from 'react'
-import './Accessories.css'
-import { Link } from 'react-router-dom'
+import React,{Component} from 'react'
+import {Link} from 'react-router-dom'
 import avatar from './avatar.svg'
 import banknote from './banknote.svg'
 import home from './home.svg'
 import cart from './shopping-cart.svg'
 import axios from 'axios'
 
-class Accessories extends Component {
+
+class Mens extends Component{
     constructor() {
         super()
 
         this.state = {
             menuShow: false,
-            accessories: []
+            hats: []
         }
     }
+
     componentDidMount(){
-        axios.get('/api/get-accessories')
+        axios.get('/api/get-hat')
         .then(resp=>{
-            this.setState({accessories:resp.data})
+            this.setState({hats: resp.data})
         })
     }
 
@@ -27,39 +28,40 @@ class Accessories extends Component {
         axios.post('/api/addtocart', obj)
     }
 
-    showMenu() {
+    showMenu(){
         this.setState({
             menuShow: !this.state.menuShow
         })
     }
-    render() {
-        let accessories = this.state.accessories.map((ele,i)=>{
+
+    render(){
+        let hat = this.state.hats.map((ele,i)=>{
             return (
                 <div key={i} className='product'>
                     <div>${ele.price}</div>
                     <div>{ele.description}</div>
                     <img src={ele.image} alt=""/>
                     <button
-                    onClick={()=>this.addToCart({id: ele.id})}>Add to Cart</button>
-                    <hr/>
+                    onClick={()=>this.addToCart(
+                    {id: ele.id})}>Add to Cart</button>
                 </div>
             )
         })
-        return (
+        return(
             <div>
                 <nav>
-                    <div>Accessories</div>
+                    <div>Hats</div>
                     <div className="hamburger"
-                        onClick={() => this.showMenu()}>
+                    onClick={()=>this.showMenu()}>
                         <div></div>
                         <div></div>
                         <div></div>
                     </div>
                 </nav>
 
-                <div className={(this.state.menuShow ? 'dropDownShow' : '') + ' dropdown'}>
+                <div className={(this.state.menuShow ? 'dropDownShow': '') + ' dropdown'}>
                     <ul>
-                    <Link to='mens'>
+                        <Link to='mens'>
                         <li>Mens</li>
                         </Link>
                         <Link to='womens'>
@@ -70,31 +72,31 @@ class Accessories extends Component {
                         </Link>
                         <Link to='accessories'>
                         <li>Accessories</li>
-                        </Link>
+                        </Link>                        
                         <Link to='/hats'>
                         <li>Hats</li>
                         </Link>
                     </ul>
                 </div>
 
-                <div>
-                    {accessories}
-                </div>
+                    <div className='shirts'>
+                    {hat}
+                    </div>
 
-                <div className="footer">
+                    <div className="footer">
                     <Link to='/home' className="link">
-                        <img src={home} alt="" />
+                    <img src={home} alt="" />
                     </Link>
                     <Link to='/account' className="link">
-                        <img src={banknote} alt="" />
+                    <img src={banknote} alt="" />
                     </Link>
                     <Link to='/cart' className="link">
-                        <img src={cart} alt="" />
+                    <img src={cart} alt="" />
                     </Link>
                     <Link to='/account' className="link">
-                        <img src={avatar} alt="" />
+                    <img src={avatar} alt="" />
                     </Link>
-
+                    
                 </div>
 
             </div>
@@ -102,4 +104,4 @@ class Accessories extends Component {
     }
 }
 
-export default Accessories
+export default Mens

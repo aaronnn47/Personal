@@ -5,14 +5,26 @@ import avatar from './avatar.svg'
 import banknote from './banknote.svg'
 import home from './home.svg'
 import cart from './shopping-cart.svg'
+import axios from 'axios'
 
 class Womens extends Component {
     constructor() {
         super()
 
         this.state = {
-            menuShow: false
+            menuShow: false,
+            womens: []
         }
+    }
+    componentDidMount() {
+        axios.get('/api/womens-clothes')
+            .then(resp => {
+                this.setState({ womens: resp.data })
+            })
+    }
+
+    addToCart(obj){
+        axios.post('/api/addtocart', obj)
     }
 
     showMenu() {
@@ -21,6 +33,17 @@ class Womens extends Component {
         })
     }
     render() {
+        let shirts = this.state.womens.map((ele, i) => {
+            return (
+                <div key={i} className='product'>
+                    <div>${ele.price}</div>
+                    <div>{ele.description}</div>
+                    <img src={ele.image} alt="" />
+                    <button
+                    onClick={()=>this.addToCart({id:ele.id})}>Add to Cart</button>
+                </div>
+            )
+        })
         return (
 
             <div>
@@ -36,15 +59,26 @@ class Womens extends Component {
 
                 <div className={(this.state.menuShow ? 'dropDownShow' : '') + ' dropdown'}>
                     <ul>
-                        <li>Men</li>
-                        <li>Women</li>
-                        <li>Kids</li>
-                        <li>Accessories</li>
+                        <Link to='mens'>
+                            <li>Mens</li>
+                        </Link>
+                        <Link to='womens'>
+                            <li>Womens</li>
+                        </Link>
+                        <Link to='kids'>
+                            <li>Kids</li>
+                        </Link>
+                        <Link to='accessories'>
+                            <li>Accessories</li>
+                        </Link>
+                        <Link to='/hats'>
+                        <li>Hats</li>
+                        </Link>
                     </ul>
                 </div>
 
-                <div className="womens">
-
+                <div>
+                    {shirts}
                 </div>
 
                 <div className="footer">

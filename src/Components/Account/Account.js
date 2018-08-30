@@ -33,7 +33,7 @@ class Account extends Component{
     render(){
         let {user} = this.props
         return(
-            <div>
+            <div className='background'>
                 <nav>
                     <div>Account Details</div>
                     <div className="hamburger"
@@ -46,11 +46,11 @@ class Account extends Component{
                 <div className={(this.state.menuShow ? 'dropDownShow': '') + ' dropdown'}>
                     <ul>
                         <Link to='/mens'>
-                        <li>Men</li>
+                        <li>Mens</li>
                         </Link>
 
                         <Link to='/womens'>
-                        <li>Women</li>
+                        <li>Womens</li>
                         </Link>
                         
                         <Link to='/kids'>
@@ -59,6 +59,9 @@ class Account extends Component{
 
                         <Link to='/accessories'>
                         <li>Accessories</li>
+                        </Link>
+                        <Link to='/hats'>
+                        <li>Hats</li>
                         </Link>
                     </ul>
                 </div>
