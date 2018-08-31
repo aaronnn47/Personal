@@ -16,7 +16,8 @@ const {
     REACT_APP_DOMAIN,
     CLIENT_SECRET,
     CONNECTION_STRING,
-    NODE_ENV
+    NODE_ENV,
+    STRIPE_SECRET
 } = process.env
 
 massive(CONNECTION_STRING).then(db => {
@@ -102,6 +103,7 @@ app.get('/api/get-hat',pc.getHats)
 app.post('/api/addtocart',pc.addtocart)
 app.get('/api/getcart',pc.getcart)
 
+app.post('/api/payment',pc.handlePayment)
 
 app.listen(NODE_PORT, () => {
     console.log(`listening on port ${NODE_PORT}`)

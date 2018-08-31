@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
 import './Home.css'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import home from './home.svg'
 import cart from './shopping-cart.svg'
 import avatar from './avatar.svg'
 import banknote from './banknote.svg'
+import { Line } from 'react-chartjs-2'
 
 class Home extends Component {
     constructor() {
@@ -13,56 +14,81 @@ class Home extends Component {
 
         this.state = {
             crypto_data: [],
-            menuShow: false
+            menuShow: false,
+            historical: [],
+            chartData: {}
         }
     }
 
-    showMenu(){
+    showMenu() {
         this.setState({
             menuShow: !this.state.menuShow
         })
     }
 
     componentDidMount() {
+        this.getBitcoin()
+        this.getHistoricalData()
+    }
+
+    getBitcoin() {
         axios.get('https://api.coinmarketcap.com/v2/ticker/1/')
             .then(resp => {
                 this.setState({ crypto_data: resp.data.data.quotes.USD.price })
             })
     }
 
+    getHistoricalData() {
+        axios.get('https://api.coindesk.com/v1/bpi/historical/close.json')
+            .then(resp => {
+                this.setState({ 
+                    historical: resp.data
+                })
+            })
+    }
+
+
     render() {
+        // let chart = []
+        // for (var prop in this.state.chartData){
+        //     chart.push(this.state.chartData[prop])
+        // }
+
+        // console.log(chart)
+        // console.log(this.state.chartData.labels)
+        console.log(this.state.historical)
         return (
             <div className="background">
                 <nav>
                     <div>Clonebase</div>
                     <div className="hamburger"
-                    onClick={()=>this.showMenu()}>
+                        onClick={() => this.showMenu()}>
                         <div></div>
                         <div></div>
                         <div></div>
                     </div>
                 </nav>
 
-                <div className={(this.state.menuShow ? 'dropDownShow': '') + ' dropdown'}>
+                <div className={(this.state.menuShow ? 'dropDownShow' : '') + ' dropdown'}>
                     <ul>
                         <Link to='/mens'>
-                        <li>Men</li>
+                            <li>Men</li>
                         </Link>
 
                         <Link to='/womens'>
-                        <li>Women</li>
+                            <li>Women</li>
                         </Link>
-                        
+
                         <Link to='/kids'>
-                        <li>Kids</li>
+                            <li>Kids</li>
                         </Link>
 
                         <Link to='/accessories'>
-                        <li>Accessories</li>
+                            <li>Accessories</li>
                         </Link>
-                        
+
                         <Link to='/hats'>
-                        <li>Hats</li>
+                            <li>Hats</li>
                         </Link>
                     </ul>
                 </div>
@@ -70,35 +96,42 @@ class Home extends Component {
                 <div className="home-body">
                     <h1>Bitcoin</h1>
                     {Math.round(this.state.crypto_data * 100) / 100}
-                    <div></div>
+                    <div>
+                        <Line
+                            data={this.state.historical.bpi}
+                            width={100}
+                            height={100}
+                            // options={chartOptions}
+                        />
+                    </div>
                 </div>
 
                 <div className="buy-sell">
                     <Link to='/buy'>
-                    <div>Buy</div>
+                        <div>Buy</div>
                     </Link>
                     <Link to='/sell'>
-                    <div>Sell</div>
+                        <div>Sell</div>
                     </Link>
                 </div>
 
                 <div className="footer">
                     <Link to='/home'>
-                    <img src={home} alt="" />
+                        <img src={home} alt="" />
                     </Link>
 
                     <Link to='/wallet' >
-                    <img src={banknote} alt="" />
+                        <img src={banknote} alt="" />
                     </Link>
 
                     <Link to='/cart' >
-                    <img src={cart} alt="" />
+                        <img src={cart} alt="" />
                     </Link>
 
                     <Link to='/account'>
-                    <img src={avatar} alt="" />
+                        <img src={avatar} alt="" />
                     </Link>
-                    
+
                 </div>
             </div>
         )

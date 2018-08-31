@@ -6,6 +6,7 @@ import home from './home.svg'
 import cart from './shopping-cart.svg'
 import avatar from './avatar.svg'
 import banknote from './banknote.svg'
+import StripeCheckout from 'react-stripe-checkout'
 
 class Cart extends Component {
     constructor() {
@@ -13,8 +14,17 @@ class Cart extends Component {
 
         this.state = {
             menuShow: false,
-            cart: []
+            cart: [],
+            total: 0
         }
+    }
+
+    onToken = (token) => {
+        token.card = void 0
+        axios.post('/api/payment', 
+        {token, amount: this.state.total * 100}).then(res => {
+            console.log(res)
+        })
     }
 
     componentDidMount(){
@@ -31,8 +41,6 @@ class Cart extends Component {
     }
 
     render() {
-        console.log(this.state.cart)
-        
         let newCart = []
         for (var i = 0; i < this.state.cart.length; i++){
             let flag = false
@@ -46,13 +54,23 @@ class Cart extends Component {
                 newCart.push(Object.assign({},this.state.cart[i],{quantity:1}))
             }
         }
-        
+
+        let total = newCart.reduce((acc,cur)=>{
+            return(acc += (cur.price * cur.quantity))
+        },0)
+
+        //eslint-disable-next-line
+        this.state.total = total
+
+        console.log(newCart)
         let mappedcart = newCart.map((ele,i)=>{
             return(
                 <div key={i} className="mapped-cart">
                     <img src={ele.image} alt=""/>
-                    <div>{ele.description}</div>
+                    <div className="ele">{ele.description}</div>
                     <div>{ele.quantity}</div>
+                    <div>{ele.price}</div>
+                    
                 </div>
             )
         })
@@ -96,6 +114,7 @@ class Cart extends Component {
                     <p>Image</p>
                     <p>Description</p>
                     <p>Quantity</p>
+                    <p>Price</p>
                     
                 </div>
 
@@ -103,8 +122,21 @@ class Cart extends Component {
                     {mappedcart}
                 </div>
 
+                <div className='total'>
+                    <p>Total:</p>
+                    {total}
+                </div>
+
                 <div className="bottom-cart-div">
-                    <button>Pay With Card</button>
+                
+                <StripeCheckout
+                    name="Clonebase"
+                    description="Thank you for your purchase"
+                    image="http://via.placeholder.com/100x100"
+                    token= {this.onToken}
+                    stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                    amount={total * 100}
+                />
                     <button>Pay with Bitcoin</button>
                 </div>
 

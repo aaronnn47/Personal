@@ -4,22 +4,30 @@ import axios from 'axios'
 import {Link} from 'react-router-dom'
 import {updatePrice,clearPrice} from '../../ducks/reducer'
 import {connect} from 'react-redux'
+import StripeCheckout from 'react-stripe-checkout'
 
 class Buy extends Component{
     constructor(){
         super()
 
         this.state={
-
+            
         }
     }
 
     updateBuy(){
         axios.post('/api/transactions',{
-        price: parseInt(this.props.price,10)})
+        price:this.props.price})
     }
 
-    
+    onToken = (token) =>{
+        token.card = void 0
+        axios.post('/api/payment',{token, 
+        amount: this.props.price * 100})
+        .then(resp=>{
+            console.log(resp)
+        })
+    }
 
     render(){
         console.log(this.props.price)
@@ -90,11 +98,16 @@ class Buy extends Component{
                 </div>
 
                 <div className="preview">
-                    <Link to='/home' className="preview-link">
-                    <button
-                    onClick={()=>this.updateBuy()}
-                    >Confirm</button>
-                    </Link>
+                    <div onClick={()=>this.updateBuy()}>
+                    <StripeCheckout
+                    name='Clonebase'
+                    description="Thank you for your purchase"
+                    image='http://via.placeholder.com/100x100'
+                    token={this.onToken}
+                    stripeKey={process.env.REACT_APP_STRIPE_KEY}
+                    amount={this.props.price * 100}
+                    />
+                    </div>
                 </div>
             </div>
         )

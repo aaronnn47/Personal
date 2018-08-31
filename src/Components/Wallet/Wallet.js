@@ -94,7 +94,7 @@ class Account extends Component{
             return(
             <div key={i} className="crypto">
                 <div>{ele.name}</div>
-                <div>{ele.symbol}</div>
+                {/* <div className="ele-symbol">{ele.symbol}</div> */}
                 <div>{parseFloat(ele.quotes.USD.price).toFixed(2)}</div>
             </div>
             )

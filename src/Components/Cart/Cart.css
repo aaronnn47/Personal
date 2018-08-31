@@ -16,6 +16,8 @@
     margin: 80px 0 -60px 0;
     display: flex;
     justify-content: space-around;
+    padding: 10px 10px 10px 10px;
+    font-size: 80%;
 }
 
 .mapped-cart{
@@ -25,27 +27,22 @@
     justify-content: space-between;
     align-items: center;
     margin: 5px 0;
+    padding: 0 10px 0 10px;
 }
 
 .bottom-cart-div{
-    margin: -50px 0;
+    position: relative;
+    bottom: 80px;
     display: flex;
     justify-content: space-around;
 }
 
 .bottom-cart-div > button{
     background: yellow;
-    height: 40%;
+    height: 50%;
     width:40%;
 }
 
-.footer{
-    width: 100vw;
-    height: 60px;
-    background: green;
-    display: flex;
-    justify-content: space-around;
-}
 
 .footer > a{
     width: 10%;
@@ -54,4 +51,19 @@
 img{
     width: 50px;
     height: auto;
+}
+
+.ele{
+    width: 10%;
+    position: relative;
+    right: 30px;
+}
+
+.total{
+    position: relative;
+    bottom: 100px;
+    width: 100px;
+    height: 20px;
+    left: 200px;
+    font-size: 80%
 }

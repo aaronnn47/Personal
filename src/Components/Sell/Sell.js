@@ -14,6 +14,15 @@ class Sell extends Component{
         }
     }
 
+    onToken = (token) =>{
+        token.card = void 0
+        axios.post('/api/payment',{token, 
+        amount: this.props.price * 100})
+        .then(resp=>{
+            console.log(resp)
+        })
+    }
+
     updateBuy(){
         axios.post('/api/sellTransactions',{
         price: parseInt(this.props.price,10)})
@@ -93,6 +102,7 @@ class Sell extends Component{
                     onClick={()=>this.updateBuy()}
                     >Confirm</button>
                     </Link>
+
                 </div>
             </div>
         )
