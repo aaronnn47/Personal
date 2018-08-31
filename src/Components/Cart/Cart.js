@@ -40,6 +40,7 @@ class Cart extends Component {
         })
     }
 
+
     render() {
         let newCart = []
         for (var i = 0; i < this.state.cart.length; i++){
@@ -54,7 +55,7 @@ class Cart extends Component {
                 newCart.push(Object.assign({},this.state.cart[i],{quantity:1}))
             }
         }
-
+        
         let total = newCart.reduce((acc,cur)=>{
             return(acc += (cur.price * cur.quantity))
         },0)
@@ -62,7 +63,7 @@ class Cart extends Component {
         //eslint-disable-next-line
         this.state.total = total
 
-        console.log(newCart)
+        // console.log(newCart)
         let mappedcart = newCart.map((ele,i)=>{
             return(
                 <div key={i} className="mapped-cart">
@@ -136,8 +137,8 @@ class Cart extends Component {
                     token= {this.onToken}
                     stripeKey={process.env.REACT_APP_STRIPE_KEY}
                     amount={total * 100}
-                />
-                    <button>Pay with Bitcoin</button>
+                />  
+
                 </div>
 
                 <div className="footer">

@@ -47,16 +47,28 @@ class Home extends Component {
             })
     }
 
-
     render() {
-        // let chart = []
-        // for (var prop in this.state.chartData){
-        //     chart.push(this.state.chartData[prop])
-        // }
+        let chart = []
+        let chartData=[]
+        for (var prop in this.state.historical.bpi){
+            chart.push(prop)
+        }
+        for(var prop in this.state.historical.bpi){
+            chartData.push(this.state.historical.bpi[prop])
+        }
+        
+        const data ={
+            labels: chart,
+            datasets:[
+                {
+                    data: chartData,
+                    backgroundColor: 'yellow',
+                    label: 'Bitcoin',
+                    pointRadius: 0
 
-        // console.log(chart)
-        // console.log(this.state.chartData.labels)
-        console.log(this.state.historical)
+                }
+            ]
+        }
         return (
             <div className="background">
                 <nav>
@@ -98,10 +110,9 @@ class Home extends Component {
                     {Math.round(this.state.crypto_data * 100) / 100}
                     <div>
                         <Line
-                            data={this.state.historical.bpi}
+                            data={data}
                             width={100}
                             height={100}
-                            // options={chartOptions}
                         />
                     </div>
                 </div>
