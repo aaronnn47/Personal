@@ -108,6 +108,12 @@ app.delete(`/api/deleteItem/:id`,pc.deleteItem)
 app.post('/api/shippingInfo', pc.addShipping)
 app.get('/api/getShipping',pc.getShipping)
 app.delete(`/api/removequantity/:id`,pc.removequantity)
+app.put('/api/editFirstInfo/:id',pc.editFirstNameInfo)
+app.put('/api/editlastInfo/:id',pc.editLastNameInfo)
+app.put('/api/editAddressInfo/:id',pc.editAddressInfo)
+app.put('/api/editCityInfo/:id',pc.editCityInfo)
+app.put('/api/editStInfo/:id',pc.editStInfo)
+app.put('/api/editZipInfo/:id',pc.editZipInfo)
 
 app.listen(NODE_PORT, () => {
     console.log(`listening on port ${NODE_PORT}`)

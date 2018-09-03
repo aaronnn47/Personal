@@ -24,19 +24,34 @@ class Checkout extends Component{
           editZip:false,
           bitcoin: 0,
           crypto_data: [],
-          firstNameInput: 'hidden',
-          lastNameInput: 'hidden',
-          addressInput: 'hidden',
-          cityInput: 'hidden',
-          stInput: 'hidden',
-          zipInput: 'hidden',
+          hideFirstNameInput: 'hidden',
+          hideLastNameInput: 'hidden',
+          hideAddressInput: 'hidden',
+          hideCityInput: 'hidden',
+          hideStInput: 'hidden',
+          hideZipInput: 'hidden',
           firstNameIcon: 'block',
           lastNameIcon: 'block',
           addressIcon: 'block',
           cityIcon: 'block',
           stIcon: 'block',
           zipIcon: 'block',
+          showButton: 'hidden',
+          firstNameEdit: '',
+          lastNameEdit: '',
+          addressEdit: '',
+          cityEdit: '',
+          stEdit: '',
+          zipEdit: '',
         }
+    }
+
+    handleChange(e){
+      let {name, value} = e.target
+
+      this.setState({
+        [name]: value
+      })
     }
 
     onToken = token => {
@@ -53,38 +68,44 @@ class Checkout extends Component{
 
     showFirstInput(){
       this.setState({
-        firstNameInput: 'text',
-        firstNameIcon: 'none'
+        hideFirstNameInput: 'text',
+        firstNameIcon: 'none',
+        showButton: 'visible'
       })
     }
     showLastInput(){
       this.setState({
-        lastNameInput: 'text',
-        lastNameIcon: 'none'
+        hideLastNameInput: 'text',
+        lastNameIcon: 'none',
+        showButton: 'visible'
       })
     }
     showAddressInput(){
       this.setState({
-        addressInput: 'text',
-        addressIcon: 'none'
+        hideAddressInput: 'text',
+        addressIcon: 'none',
+        showButton: 'visible'
       })
     }
     showCityInput(){
       this.setState({
-        cityInput: 'text',
-        cityIcon: 'none'
+        hideCityInput: 'text',
+        cityIcon: 'none',
+        showButton: 'visible'
       })
     }
     showStInput(){
       this.setState({
-        stInput: 'text',
-        stIcon: 'none'
+        hideStInput: 'text',
+        stIcon: 'none',
+        showButton: 'visible'
       })
     }
     showZipInput(){
       this.setState({
-        zipInput: 'text',
-        zipIcon: 'none'
+        hideZipInput: 'text',
+        zipIcon: 'none',
+        showButton: 'visible'
       })
     }
 
@@ -129,10 +150,84 @@ class Checkout extends Component{
         });
       }
 
+    handleFirstName(e,id,text){
+      if(e.key ==='Enter'){
+        axios.put(`/api/editFirstInfo/${id}`,{text})
+        .then(resp=>{
+          this.getShippingDetail()
+          this.setToDefault()
+        })
+      }
+    }
+
+    handleLastName(e,id,text){
+      if(e.key ==='Enter'){
+        axios.put(`/api/editLastInfo/${id}`,{text})
+        .then(resp=>{
+          this.getShippingDetail()
+          this.setToDefault()
+        })
+      }
+    }
+
+    handleAddress(e,id,text){
+      if(e.key ==='Enter'){
+        axios.put(`/api/editAddressInfo/${id}`,{text})
+        .then(resp=>{
+          this.getShippingDetail()
+          this.setToDefault()
+        })
+      }
+    }
+    handleCity(e,id,text){
+      if(e.key ==='Enter'){
+        axios.put(`/api/editCityInfo/${id}`,{text})
+        .then(resp=>{
+          this.getShippingDetail()
+          this.setToDefault()
+        })
+      }
+    }
+    handleSt(e,id,text){
+      if(e.key ==='Enter'){
+        axios.put(`/api/editStInfo/${id}`,{text})
+        .then(resp=>{
+          this.getShippingDetail()
+          this.setToDefault()
+        })
+      }
+    }
+    handleZip(e,id,text){
+      if(e.key ==='Enter'){
+        axios.put(`/api/editZipInfo/${id}`,{text})
+        .then(resp=>{
+          this.getShippingDetail()
+          this.setToDefault()
+        })
+      }
+    }
+
+    setToDefault(){
+      this.setState({
+        hideFirstNameInput: 'hidden',
+        hideLastNameInput: 'hidden',
+        hideAddressInput: 'hidden',
+        hideCityInput: 'hidden',
+        hideStInput: 'hidden',
+        hideZipInput: 'hidden',
+        firstNameIcon: 'block',
+        lastNameIcon: 'block',
+        addressIcon: 'block',
+        cityIcon: 'block',
+        stIcon: 'block',
+        zipIcon: 'block',
+      })
+    }
     render(){
-    console.log(this.state.bitcoin)
-    console.log(this.state.editFirst)
-    console.log(this.state.crypto_data)
+    // console.log(this.state.bitcoin)
+    // console.log(this.state.editFirst)
+    // console.log(this.state.crypto_data)
+    console.log(this.state.shipping)
     let shippingInfo = this.state.shipping.map((ele,i)=>{
       return(
         <div key={i} className='mapped-shipping'>
@@ -143,17 +238,27 @@ class Checkout extends Component{
             onClick={()=>this.showFirstInput()}
             style={{display:`${this.state.firstNameIcon}`}}
             />
-            <input type={this.state.firstNameInput}/>
-          
+            <input
+            name='firstNameEdit' 
+            value={this.state.firstNameEdit}
+            type={this.state.hideFirstNameInput}
+            onChange={e => this.handleChange(e)}
+            onKeyPress={(e)=>this.handleFirstName(e,ele.user_id,this.state.firstNameEdit)}
+            />
           </div>
-
           <div className='ele-div'>
             <div>{ele.lastname}</div>
             <img src={edit} alt=''
             onClick={()=>this.showLastInput()}
             style={{display:`${this.state.lastNameIcon}`}}
             />
-            <input type={this.state.lastNameInput}/>
+            <input type={this.state.lastNameInput}
+            name='lastNameEdit' 
+            value={this.state.lastNameEdit}
+            type={this.state.hideLastNameInput}
+            onChange={e => this.handleChange(e)}
+            onKeyPress={(e)=>this.handleLastName(e,ele.user_id,this.state.lastNameEdit)}            
+            />
           </div>
 
           <div className='ele-div'>
@@ -162,7 +267,13 @@ class Checkout extends Component{
           onClick={()=>this.showAddressInput()}
           style={{display:`${this.state.addressIcon}`}}          
           />
-          <input type={this.state.addressInput}/>
+          <input type={this.state.addressInput}
+            name='addressEdit' 
+            value={this.state.addressEdit}
+            type={this.state.hideAddressInput}
+            onChange={e => this.handleChange(e)}
+            onKeyPress={(e)=>this.handleAddress(e,ele.user_id,this.state.addressEdit)}          
+          />
           </div>
 
           <div className='ele-div'>
@@ -171,7 +282,13 @@ class Checkout extends Component{
           onClick={()=>this.showCityInput()}
           style={{display:`${this.state.cityIcon}`}}          
           />
-          <input type={this.state.cityInput}/>
+          <input type={this.state.cityInput}
+            name='cityEdit' 
+            value={this.state.cityEdit}
+            type={this.state.hideCityInput}
+            onChange={e => this.handleChange(e)} 
+            onKeyPress={(e)=>this.handleCity(e,ele.user_id,this.state.cityEdit)}         
+          />
           </div>
 
           <div className='ele-div'>
@@ -180,7 +297,13 @@ class Checkout extends Component{
           onClick={()=>this.showStInput()}
           style={{display:`${this.state.stIcon}`}}           
           />
-          <input type={this.state.stInput}/>
+          <input type={this.state.stInput}
+            name='stEdit' 
+            value={this.state.stEdit}
+            type={this.state.hideStInput}
+            onChange={e => this.handleChange(e)}
+            onKeyPress={(e)=>this.handleSt(e,ele.user_id,this.state.stEdit)}          
+          />
           </div>
 
           <div className='ele-div'>
@@ -189,7 +312,14 @@ class Checkout extends Component{
           onClick={()=>this.showZipInput()}
           style={{display:`${this.state.zipIcon}`}}           
           />
-          <input type={this.state.zipInput}/>
+          <input type={this.state.zipInput}
+            name='zipEdit' 
+            value={this.state.zipEdit}
+            type={this.state.hideZipInput}
+            onChange={e => this.handleChange(e)}
+            onKeyPress={(e)=>this.handleZip(e,ele.user_id,this.state.zipEdit)}
+                 
+          />
           </div>
         </div>
       )
@@ -231,9 +361,10 @@ class Checkout extends Component{
           </ul>
         </div>
 
-        <div className="checkout-container">
+        <div className="checkout-container"
+        // onClick={()=>this.setToDefault()}
+        >
           {shippingInfo}
-          <button type={{visibility:'hidden'}}>Save</button>
           <div>Total: {this.props.total}.00</div>
           <div>BTC: {parseFloat(this.props.total/this.state.crypto_data).toFixed(8)}</div>
           <button className='checkout-bitcoin' onClick={()=>this.sellBitcoin({price:this.props.total})}

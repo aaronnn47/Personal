@@ -148,5 +148,71 @@ module.exports={
         .then(resp=>{
             res.status(200).send('removed')
         })
+    },
+    editFirstNameInfo: (req,res)=>{
+        let db = req.app.get('db')
+        let {id} = req.params
+        let {text} = req.body
+        console.log(req.body)
+
+        db.edit_firstname_info([id,text])
+        .then(resp=>{
+            res.status(200).send('editted')
+        })
+    },
+    editLastNameInfo: (req,res)=>{
+        let db = req.app.get('db')
+        let {id} = req.params
+        let {text} = req.body
+        console.log(req.body)
+
+        db.edit_last_name_info([id,text])
+        .then(resp=>{
+            res.status(200).send('editted')
+        })
+    },
+    editAddressInfo: (req,res)=>{
+        let db = req.app.get('db')
+        let {id} = req.params
+        let {text} = req.body
+        console.log(req.body)
+
+        db.edit_address_info([id,text])
+        .then(resp=>{
+            res.status(200).send('editted')
+        })
+    },
+    editCityInfo: (req,res)=>{
+        let db = req.app.get('db')
+        let {id} = req.params
+        let {text} = req.body
+        console.log(req.body)
+
+        db.edit_city_info([id,text])
+        .then(resp=>{
+            res.status(200).send('editted')
+        })
+    },
+    editStInfo: (req,res)=>{
+        let db = req.app.get('db')
+        let {id} = req.params
+        let {text} = req.body
+        console.log(req.body)
+
+        db.edit_st_info([id,text])
+        .then(resp=>{
+            res.status(200).send('editted')
+        })
+    },
+    editZipInfo: (req,res)=>{
+        let db = req.app.get('db')
+        let {id} = req.params
+        let {text} = req.body
+        console.log(req.body)
+
+        db.edit_zip_info([id,text])
+        .then(resp=>{
+            res.status(200).send('editted')
+        })
     }
 }
