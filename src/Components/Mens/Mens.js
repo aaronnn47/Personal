@@ -78,11 +78,11 @@ class Hats extends Component{
                     </ul>
                 </div>
 
-                    <div className='shirts'>
-                    {shirts}
-                    </div>
+                <div>
+                {shirts}
+                </div>
 
-                    <div className="footer">
+                <div className="footer">
                     <Link to='/home' className="link">
                     <img src={home} alt="" />
                     </Link>

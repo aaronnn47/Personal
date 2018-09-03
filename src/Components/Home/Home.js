@@ -51,11 +51,14 @@ class Home extends Component {
         let chart = []
         let chartData=[]
         for (var prop in this.state.historical.bpi){
+            prop = prop.split('').splice(5).join('')
             chart.push(prop)
         }
         for(var prop in this.state.historical.bpi){
             chartData.push(this.state.historical.bpi[prop])
         }
+
+        // console.log(chart)
         
         const data ={
             labels: chart,

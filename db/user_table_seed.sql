@@ -80,3 +80,14 @@ select p.
 from cart ca
 join categories c on c.id = ca.category_id
 join products p on p.id = ca.product_id 
+
+create table shippingInfo
+(id serial primary key, firstname text, lastname text, address text, city text, st text, zip text, 
+user_id integer, foreign key(user_id) references users(id) )
+
+create table cart
+(
+cart_id serial primary key,
+user_id integer, foreign key(user_id) references users(id),
+product_id integer, foreign key(product_id) references products(id)
+)

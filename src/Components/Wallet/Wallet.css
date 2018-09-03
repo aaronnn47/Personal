@@ -18,7 +18,6 @@ nav{
     position: fixed;
     top: 0;
     font-family: 'Dancing Script', cursive;
-    /* font-family: 'Open Sans', sans-serif; */
 }
 
 .hamburger{
@@ -46,8 +45,11 @@ ul{
 .dropdown{
     background: slategrey;
     height: 0;
+    width: 100%;
     overflow:hidden;
-    transition: 300ms height ease-in
+    transition: 300ms height ease-in;
+    position: fixed;
+    z-index: 1;
 }
 
 .dropDownShow{
@@ -55,18 +57,17 @@ ul{
     width: 100%;
     background: slategrey;
     position: fixed;
-    margin: -20px 0;
+    z-index: 1;
 }
 
 .wallet-body{
     width: 100vw;
     height: 400px;
-    /* background: #66a66b; */
     padding: 20px 0;
     display:flex;
     flex-direction: column;
     align-items: center;
-    margin: 70px 0;
+    margin: 50px 0;
     font-family: 'Open Sans', sans-serif;
 }
 
@@ -114,11 +115,10 @@ ul{
 .send-receive{
     height: 60px;
     width: 100vw;
-    /* background: yellow;			; */
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin: -90px 0;
+    margin: -50px 0;
 }
 
 .footer{

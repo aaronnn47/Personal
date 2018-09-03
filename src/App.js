@@ -14,6 +14,8 @@ import Login from './Components/Login/Login'
 import Sell from './Components/Sell/Sell'
 import Hats from './Components/Hats/Hats'
 import axios from 'axios';
+import Shipping from './Components/Shipping/Shipping'
+import Checkout from './Components/Checkout/Checkout'
 
 class App extends Component {
 
@@ -36,6 +38,8 @@ class App extends Component {
           <Route path='/accessories' component={Accessories}/>
           <Route path='/sell' component={Sell}/>
           <Route path='/hats' component={Hats}/>
+          <Route path='/shipping' component={Shipping}/>
+          <Route path='/checkout' component={Checkout}/>
           
         </Switch>
       </HashRouter>

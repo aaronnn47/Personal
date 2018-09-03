@@ -109,6 +109,44 @@ module.exports={
                 }
             }
         )
-    }
+    },
+    deleteItem: (req,res)=>{
+        let db = req.app.get('db')
+        let {id} = req.params
+        
+        db.delete_item_from_cart([id]).then(()=> {
+        res.status(200).send('delete from cart')
+        })
+        .catch( err => console.log(err, 'Deletion Failed'))
+        
+    },
+    addShipping: (req,res)=>{
+        let db = req.app.get('db')
+        let{firstName, lastName, address, city, st, zip} = req.body
+        let {id} = req.session.user
 
+        db.create_shipping_info([firstName,lastName,address,city,st,zip,id])
+        .then(()=>{
+            res.status(200).send('added')
+        })
+    },
+    getShipping:(req,res)=>{
+        let db = req.app.get('db')
+        let {id} = req.session.user 
+
+        db.get_shipping_info([id])
+        .then(resp=>{
+            res.status(200).send(resp)
+        })
+    },
+    removequantity: (req,res)=>{
+        let db = req.app.get('db')
+        let{id} = req.params
+        console.log(id)
+
+        db.remove_quantity([id])
+        .then(resp=>{
+            res.status(200).send('removed')
+        })
+    }
 }

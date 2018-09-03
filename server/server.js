@@ -104,6 +104,10 @@ app.post('/api/addtocart',pc.addtocart)
 app.get('/api/getcart',pc.getcart)
 
 app.post('/api/payment',pc.handlePayment)
+app.delete(`/api/deleteItem/:id`,pc.deleteItem)
+app.post('/api/shippingInfo', pc.addShipping)
+app.get('/api/getShipping',pc.getShipping)
+app.delete(`/api/removequantity/:id`,pc.removequantity)
 
 app.listen(NODE_PORT, () => {
     console.log(`listening on port ${NODE_PORT}`)

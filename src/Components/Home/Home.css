@@ -6,8 +6,9 @@
 
 .background{
     background: #C0D6DF;
-    height: 100vh;
+    height: 81vh;
     width: 100%;
+    z-index: -10;
 }
 
 .home-body{
@@ -17,7 +18,7 @@
     display:flex;
     flex-direction: column;
     align-items: center;
-    margin: 70px 0;
+    margin: 50px 0;
 }
 
 .home-body > div{
@@ -29,12 +30,12 @@
 }
 
 .buy-sell{
-    height: 60px;
+    height: 10%;
     width: 100vw;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
-    margin: -120px 0;
+    margin: -50px 0;
 }
 
 .footer > a > img{
